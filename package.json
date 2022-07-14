@@ -1,0 +1,19 @@
+{
+  "name": "dhx-spreadsheets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "spreadsheet.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/everafterai/dhx-spreadsheets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/everafterai/dhx-spreadsheets/issues"
+  },
+  "homepage": "https://github.com/everafterai/dhx-spreadsheets#readme"
+}
