@@ -11,7 +11,7 @@ export declare class BufferManager {
     private _dataStore;
     private _prevCopyPage;
     constructor(spreadsheet: ISpreadsheet, grid: IGrid, callAction: (config: IExecuteConfig) => void, page: DataPage, dataStore: DataStore);
-    store(operation: IBufferStruct["operation"], col?: any, row?: any): void;
+    store(operation: IBufferStruct["operation"]): void;
     paste(): void;
     getStruct(): IBufferStruct;
     private _setHandlers;

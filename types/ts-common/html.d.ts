@@ -56,7 +56,8 @@ export declare function fitPosition(node: HTMLElement, config: IFitPositionConfi
     minWidth: string;
     position: string;
 };
-export declare function getPageCss(): string;
+export declare function getPageInlineCss(): string;
+export declare function getPageLinksCss(): string;
 export declare function getLabelStyle(config: any): false | {
     style: {
         width: any;

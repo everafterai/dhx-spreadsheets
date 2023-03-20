@@ -54,12 +54,16 @@ declare type placeholders = {
     [name: string]: cellValue;
 };
 declare type MathParser = (code: string, ctx: parseContext) => IFormula;
-declare type MathGenerator = (x: IFormula) => void;
+declare type MathGenerator = (x: IFormula, strict: boolean) => void;
 interface IConfig {
     get: valueGetter;
     set: valueSetter;
+    strict: boolean;
 }
-export { IRawCode, IConfig, IFormula, namedGetter, numberGetter, valueGetter, valueSetter, valueFormulaGetter, rangeFormulaGetter, valueFormulaSetter, execFunction, cellId, publicId, MathParser, MathGenerator, mathArgument, mathFunction, cellValue, maybeNumber, placeholders, };
+interface IStoreConfig {
+    strict: boolean;
+}
+export { IRawCode, IConfig, IFormula, namedGetter, numberGetter, valueGetter, valueSetter, valueFormulaGetter, rangeFormulaGetter, valueFormulaSetter, execFunction, cellId, publicId, MathParser, MathGenerator, mathArgument, mathFunction, cellValue, maybeNumber, placeholders, IStoreConfig, };
 declare const T_TEXT = 1;
 declare const T_PLACEHOLDER = 2;
 declare const T_ERROR = 3;
@@ -86,3 +90,4 @@ export interface IValue {
 }
 export declare const D_COMMON = 0;
 export declare const D_STRING = 1;
+export declare const D_RESULT = 2;

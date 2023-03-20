@@ -3,7 +3,7 @@ export declare class AddColumn implements IAction {
     config: IActionConfig;
     private _index;
     private _sheetName;
-    private _prevCols;
+    private _prev;
     constructor(config: IActionConfig);
     do(): void;
     undo(): void;

@@ -323,7 +323,7 @@ export interface IComboProps extends IBaseLayoutItem {
 export interface IComboConfig extends IItem, IComboboxConfig {
     type?: "combo";
     required?: boolean;
-    value?: string | string[];
+    value?: Id | Id[];
     data?: any[];
     validation?: ValidationComboFn;
 }
@@ -338,10 +338,10 @@ export interface ICombo {
     disable(): void;
     enable(): void;
     isDisabled(): boolean;
-    validate(silent?: boolean, validateValue?: string | string[]): boolean;
+    validate(silent?: boolean, validateValue?: Id | Id[]): boolean;
     clearValidate(): void;
-    setValue(value: string | string[]): void;
-    getValue(): string | string[];
+    setValue(value: Id | Id[]): void;
+    getValue(): Id | Id[];
     focus(): void;
     blur(): void;
     clear(): void;
@@ -933,16 +933,16 @@ export interface IColorPickerEventHandlersMap extends IBaseHandlersMap {
     [ItemEvent.afterChangeProperties]: (properties: IColorpickerProps) => void;
 }
 export interface IComboEventHandlersMap extends IBaseHandlersMap {
-    [ItemEvent.change]: (value: string | string[]) => void;
-    [ItemEvent.focus]: (value: string | string[]) => void;
-    [ItemEvent.blur]: (value: string | string[]) => void;
-    [ItemEvent.keydown]: (event: KeyboardEvent, id: string | undefined) => void;
-    [ItemEvent.beforeHide]: (value: string | string[], init: boolean) => boolean | void;
-    [ItemEvent.beforeShow]: (value: string | string[]) => boolean | void;
-    [ItemEvent.afterHide]: (value: string | string[], init: boolean) => void;
-    [ItemEvent.afterShow]: (value: string | string[]) => void;
-    [ItemEvent.beforeValidate]: (value: string | string[]) => boolean | void;
-    [ItemEvent.afterValidate]: (value: string | string[], isValidate: boolean) => void;
+    [ItemEvent.change]: (value: Id | Id[]) => void;
+    [ItemEvent.focus]: (value: Id | Id[]) => void;
+    [ItemEvent.blur]: (value: Id | Id[]) => void;
+    [ItemEvent.keydown]: (event: KeyboardEvent, id: Id | undefined) => void;
+    [ItemEvent.beforeHide]: (value: Id | Id[], init: boolean) => boolean | void;
+    [ItemEvent.beforeShow]: (value: Id | Id[]) => boolean | void;
+    [ItemEvent.afterHide]: (value: Id | Id[], init: boolean) => void;
+    [ItemEvent.afterShow]: (value: Id | Id[]) => void;
+    [ItemEvent.beforeValidate]: (value: Id | Id[]) => boolean | void;
+    [ItemEvent.afterValidate]: (value: Id | Id[], isValidate: boolean) => void;
     [ItemEvent.beforeChangeProperties]: (properties: IComboProps) => boolean | void;
     [ItemEvent.afterChangeProperties]: (properties: IComboProps) => void;
 }
@@ -1116,7 +1116,7 @@ export declare type ValidationInputFn = (input: string | number) => boolean;
 export declare type ValidationDateInput = (input: string | Date) => boolean;
 export declare type ValidationTimepickerFn = (input: string | ITimeObject) => boolean;
 export declare type ValidationSelectFn = (input: string | number | boolean) => boolean;
-export declare type ValidationComboFn = (input: string | string[]) => boolean;
+export declare type ValidationComboFn = (input: Id | Id[], text: string | string[]) => boolean;
 export declare enum ClearMethod {
     value = "value",
     validation = "validation"

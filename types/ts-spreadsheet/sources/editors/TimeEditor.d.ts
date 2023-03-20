@@ -10,7 +10,7 @@ export declare class TimeEditor implements IEditor {
     private _events;
     private _isFromSet;
     private _initialDate;
-    constructor(_cb: any, timeFormat: any, events: any);
+    constructor(_cb: any, format: any, events: any);
     endEdit(): void;
     setValue(value: number | string): void;
     hidePopup(): void;

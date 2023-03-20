@@ -52,7 +52,7 @@ export interface ICell extends IView {
     id: string;
     config: ICellConfig;
     events: IEventSystem<LayoutEvents, ILayoutEventHandlersMap>;
-    attach(name: string | IViewFn | IView | IViewConstructor, config?: any): IViewLike;
+    attach(component: string | IViewFn | IView | IViewConstructor, config?: any): IViewLike;
     attachHTML(html: string): void;
     isVisible(): boolean;
     toVDOM(nodes?: any[]): any;

@@ -14,6 +14,8 @@ export declare class Cell extends View implements ICell {
     protected _parent: ILayout;
     protected _ui: IViewLike;
     protected _resizerHandlers: any;
+    private _isLastFlexCell;
+    private _afterWindowResized;
     constructor(parent: string | HTMLElement | ILayout, config: ICellConfig);
     paint(): void;
     isVisible(): boolean;
@@ -27,17 +29,19 @@ export declare class Cell extends View implements ICell {
     destructor(): void;
     getWidget(): IViewLike;
     getCellView(): any;
-    attach(name: any, config?: any): IViewLike;
+    attach(component: any, config?: any): IViewLike;
     attachHTML(html: string): void;
     toVDOM(nodes?: any[]): any;
     protected _getCss(_content?: boolean): string;
     protected _initHandlers(): void;
     protected _getCollapsedSize(cell: ICell, nextCell: ICell): number;
-    protected _getCollapseIcon(): "dxi dxi-chevron-right" | "dxi dxi-chevron-left" | "dxi dxi-chevron-up" | "dxi dxi-chevron-down";
+    protected _getCollapseIcon(): "dxi dxi-chevron-up" | "dxi dxi-chevron-down" | "dxi dxi-chevron-right" | "dxi dxi-chevron-left";
     protected _isLastCell(): boolean;
     protected _getNextCell(): any;
-    protected _getAnyFlexCell(): any;
+    protected _getAnyFlexCell(selfInclude?: boolean): any;
     protected _getResizerView(): any;
     protected _isXDirection(): any;
     protected _calculateStyle(): any;
+    private _resizedWindow;
+    private _resetCellsSize;
 }

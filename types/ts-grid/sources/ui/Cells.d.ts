@@ -1,4 +1,4 @@
-import { GridEvents, ICol, ICoords, IRendererConfig, GridSystemEvents } from "../types";
+import { GridEvents, ICol, ICoords, IRendererConfig, GridSystemEvents, IGridConfig, ISpan } from "../types";
 declare type mouseEvents = GridEvents.cellClick | GridEvents.cellMouseOver | GridEvents.cellMouseDown | GridEvents.cellDblClick | GridEvents.cellRightClick;
 declare type touchEvents = GridSystemEvents.cellTouchEnd | GridSystemEvents.cellTouchMove;
 declare function handleMouse(rowStart: number, colStart: number, conf: IRendererConfig, type: mouseEvents & touchEvents, e: any): void;
@@ -16,4 +16,16 @@ export declare function getTreeCell(content: any, row: any, col: ICol, conf: IRe
 export declare function getCells(conf: IRendererConfig): any[];
 export declare function getSpans(config: IRendererConfig, frozen?: boolean): any[];
 export declare function getShifts(conf: IRendererConfig): ICoords;
+export declare function normalizeSpan(span: ISpan, renderConfig: IGridConfig): {
+    $renderFrom: string[];
+    row: import("../../../ts-common/types").Id;
+    column: import("../../../ts-common/types").Id;
+    rowspan?: number;
+    colspan?: number;
+    text?: import("../../../ts-common/types").Id;
+    css?: string;
+    tooltip?: boolean;
+    tooltipTemplate?: (spanValue: any, span: ISpan) => string;
+    $markCss?: string;
+};
 export {};

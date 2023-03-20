@@ -1,3 +1,4 @@
+import { IGrid } from "../../../ts-grid";
 export declare class ValidationForm {
     protected _handlers: {
         [key: string]: (...args: any[]) => void;
@@ -7,7 +8,8 @@ export declare class ValidationForm {
     private _focus;
     private _events;
     private _set;
-    constructor(events: any, set: any);
+    private _grid;
+    constructor(events: any, set: any, grid: IGrid);
     hide(): void;
     formValidation(val: any): any;
     show(cell: string, config?: any): void;

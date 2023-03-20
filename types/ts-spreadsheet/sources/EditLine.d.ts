@@ -15,6 +15,7 @@ export declare class EditLine extends View {
     private _activePage;
     private _editMode;
     private _isEdit;
+    private _grid;
     constructor(element?: string | HTMLElement, config?: any);
     _parse(text: string, ctx?: any): IFormula;
     navigate(key: "arrowDown" | "arrowUp" | "enter"): boolean;
