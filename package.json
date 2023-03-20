@@ -2,8 +2,7 @@
   "name": "dhx-spreadsheets",
   "version": "1.0.0",
   "description": "",
-  "main": "spreadsheet.js",
-  "types": "spreadsheet.d.ts",
+  "main": "spreadsheet.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
