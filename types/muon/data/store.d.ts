@@ -1,7 +1,9 @@
+import { IStoreConfig } from "../types";
 import { Store } from "../store";
 import { DataPage } from "./page";
 import { RangeStore } from "./ranges";
 export declare class DataStore {
+    private _cfg;
     private _pages;
     private _pageName2ID;
     private _pageNames;
@@ -9,7 +11,7 @@ export declare class DataStore {
     private _ranges;
     private _pCounter;
     private _parseContext;
-    constructor();
+    constructor(cfg: IStoreConfig);
     addPage(name: string): DataPage;
     renamePage(name: string, newName: string): void;
     removePage(name: string): void;

@@ -46,14 +46,37 @@ export declare function getMenuStruct(config: ISpreadsheetConfig): ({
         id: string;
         value: string;
         icon: string;
+        items: {
+            id: string;
+            value: string;
+            icon: string;
+        }[];
+        type?: undefined;
+    } | {
+        id: string;
+        type: string;
+        icon: string;
+        value: string;
+        items?: undefined;
+    })[];
+    open?: undefined;
+} | {
+    id: string;
+    value: string;
+    items: ({
+        id: string;
+        value: string;
+        icon: string;
         type?: undefined;
         items?: undefined;
+        tooltip?: undefined;
     } | {
         type: string;
         id?: undefined;
         value?: undefined;
         icon?: undefined;
         items?: undefined;
+        tooltip?: undefined;
     } | {
         id: string;
         value: string;
@@ -66,18 +89,32 @@ export declare function getMenuStruct(config: ISpreadsheetConfig): ({
         }[];
         icon?: undefined;
         type?: undefined;
+        tooltip?: undefined;
     } | {
         id: string;
         type: string;
         value: string;
-        items: {
+        items: ({
             id: string;
             css: string;
             twoState: boolean;
-            group: string;
             html: string;
-        }[];
+        } | {
+            id: string;
+            css: string;
+            twoState: boolean;
+            hidden: boolean;
+            value: string;
+        })[];
         icon?: undefined;
+        tooltip?: undefined;
+    } | {
+        id: string;
+        type: string;
+        value: string;
+        tooltip: string;
+        icon?: undefined;
+        items?: undefined;
     })[];
     open?: undefined;
 } | {

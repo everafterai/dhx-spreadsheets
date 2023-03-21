@@ -4,6 +4,7 @@ export declare class Store implements IMathStore {
     $count: number;
     private _setter;
     private _getter;
+    private _strict;
     private _context;
     private _parser;
     private _printer;

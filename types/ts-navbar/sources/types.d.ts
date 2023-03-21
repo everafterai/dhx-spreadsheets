@@ -120,7 +120,9 @@ export interface IInput extends IItem {
     placeholder?: string;
     width?: string;
     label?: string;
+    hiddenLabel?: boolean;
     value?: string;
+    autocomplete?: boolean;
 }
 export interface IImageButton extends IItem {
     type: "imageButton";
@@ -161,6 +163,7 @@ export interface IDatePicker extends IItem {
     placeholder?: string;
     width?: string;
     label?: string;
+    hiddenLabel?: boolean;
     value?: string | Date;
     dateFormat?: string;
 }

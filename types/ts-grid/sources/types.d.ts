@@ -35,7 +35,9 @@ export interface IGridConfig extends IDragConfig {
     autoWidth?: boolean;
     autoHeight?: boolean;
     eventHandlers?: {
-        [key: string]: any;
+        [eventName: string]: {
+            [className: string]: (event: Event, item: ICellObj) => void;
+        };
     };
     rootParent?: Id;
     $headerLevel?: number;
@@ -48,6 +50,7 @@ export interface IGridConfig extends IDragConfig {
     $editable?: {
         row: any;
         col: any;
+        isSpan: boolean;
         editorType?: EditorType;
         editor?: IEditor;
     };
@@ -64,6 +67,10 @@ export interface IGridConfig extends IDragConfig {
     /** @deprecated See a documentation: https://docs.dhtmlx.com/ */
     splitAt?: number;
 }
+interface ICellObj {
+    col: ICol;
+    row: IRow;
+}
 export interface IColumnsWidth {
     [col: string]: number;
 }
@@ -76,6 +83,8 @@ export interface IRendererConfig extends IGridConfig {
     datacollection: any;
     currentColumns?: ICol[];
     currentRows?: IRow[];
+    fixedColumns?: ICol[];
+    fixedRows?: IRow[];
     firstColId?: Id;
     headerHeight?: number;
     footerHeight?: number;
@@ -88,6 +97,7 @@ export interface IRendererConfig extends IGridConfig {
     htmlEnable?: boolean;
     content?: IContentList;
     gridId?: string;
+    $renderFrom?: "fixedCols" | "fixedRows" | "render" | "both";
     _events?: IEventSystem<GridSystemEvents>;
 }
 export interface ISortingState {
@@ -223,6 +233,7 @@ export interface ISpan {
     css?: string;
     tooltip?: boolean;
     tooltipTemplate?: (spanValue: any, span: ISpan) => string;
+    $markCss?: string;
 }
 declare type MarkFunction = (cell: any, columnCells: any[], row: IRow, column: ICol) => string;
 export interface IMark {
@@ -388,11 +399,18 @@ export interface ISystemEventHandlersMap {
 export interface ICellContent {
     element?: any;
     toHtml: (column: ICol, config: IRendererConfig) => any;
-    match?: (obj: any, value: any, item?: any, multi?: boolean) => boolean;
+    match?: (obj: IMatch) => boolean;
     destroy?: () => void;
     calculate?: (col: any[], roots: any[]) => string | number;
     validate?: (colId: Id, data: any[]) => any[];
     value?: any;
+}
+interface IMatch {
+    val: any;
+    match: any;
+    obj?: any;
+    multi?: boolean;
+    col?: ICol;
 }
 export interface IContentList {
     [key: string]: ICellContent;
@@ -430,6 +448,7 @@ export interface ISizes {
 export interface ICell {
     row: IRow;
     column: ICol;
+    $preventedUnselect?: boolean;
 }
 export interface IRow {
     id?: Id;
@@ -438,7 +457,7 @@ export interface IRow {
     [key: string]: any;
 }
 export interface IEditor {
-    toHTML(): any;
+    toHTML(text?: string): any;
     endEdit(withoutSave?: boolean): void;
 }
 export declare type ISelectionType = "cell" | "row" | "complex";
@@ -472,4 +491,5 @@ export interface IGridSelectionEventsHandlersMap {
     [GridSelectionEvents.beforeSelect]: (row: IRow, col: ICol) => boolean | void;
     [GridSelectionEvents.beforeUnSelect]: (row: IRow, col: ICol) => boolean | void;
 }
+export declare type TRowStatus = "firstFilledRow" | "firstEmptyRow";
 export {};

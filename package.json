@@ -1,6 +1,6 @@
 {
   "name": "dhx-spreadsheets",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "spreadsheet.min.js",
   "scripts": {

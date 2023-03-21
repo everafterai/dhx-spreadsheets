@@ -1,6 +1,6 @@
 import { IHandlers } from "../../ts-common/types";
 import { IEventSystem } from "../../ts-common/events";
-import { IGrid } from "../../ts-grid";
+import { ICoords, IGrid } from "../../ts-grid";
 import { IToolbar } from "../../ts-toolbar";
 import { ContextMenu, Menu } from "../../ts-menu";
 import { EditLine } from "./EditLine";
@@ -8,6 +8,8 @@ import { Exporter } from "./Exporter";
 import { IFormula, DataPage, DataStore } from "../../muon";
 import { DataCollection } from "../../ts-data";
 import { IKeyManager } from "../../ts-common/newKeyManager";
+import { ISelectedCell } from "./Selection";
+import { IValue } from "../../muon/dist/types/types";
 export interface ISpreadsheetConfig {
     toolbarBlocks?: ToolbarBlocks[];
     rowsCount?: number;
@@ -32,16 +34,16 @@ export interface IEditor {
     endEdit(withoutSave?: boolean): void;
     hidePopup?(): void;
 }
-export declare type formatAliases = "common" | "number" | "currency" | "percent" | "text";
+export declare type formatAliases = "common" | "number" | "currency" | "percent" | "text" | "date" | "time";
 export interface IFormats {
     id: formatAliases | string;
     mask: string;
     name?: string;
     example?: string;
-    dateFormat?: string;
     timeFormat?: number;
 }
-export declare type ToolbarBlocks = "default" | "undo" | "colors" | "columns" | "rows" | "cells" | "lock" | "align" | "decoration" | "clear" | "help" | "format" | "file";
+export declare type IMuonCell = [number, number, IValue];
+export declare type ToolbarBlocks = "default" | "undo" | "colors" | "columns" | "rows" | "cells" | "lock" | "align" | "decoration" | "clear" | "help" | "format" | "actions" | "file";
 export interface IStylesList {
     [key: string]: string;
 }
@@ -80,7 +82,7 @@ export interface ISpreadsheet {
     addSheet: (name?: string) => string;
     getSheets: () => ISheet[];
     getActiveSheet: () => ISheet;
-    setActiveSheet: (id: string) => void;
+    setActiveSheet: (id: Id) => void;
     setValidation: (cell: string, options: string | string[]) => void;
     sortCells: (cell: string, dir?: 1 | -1) => void;
     undo(): void;
@@ -122,6 +124,7 @@ export interface ICopyData {
     values: string[];
     rowsCount: number;
     colsCount: number;
+    formats: any;
     styles?: {};
 }
 export declare enum SpreadsheetEvents {
@@ -190,7 +193,8 @@ export declare enum SpreadsheetEvents {
     editLineFocus = "editLineFocus",
     editLineBlur = "editLineBlur",
     cellInput = "cellInput",
-    gridRedraw = "gridRedraw"
+    gridRedraw = "gridRedraw",
+    afterPopupHide = "afterPopupHide"
 }
 export interface IEventHandlersMap {
     [key: string]: (...args: any[]) => any;
@@ -232,10 +236,12 @@ export interface IEventHandlersMap {
     [SpreadsheetEvents.editLineBlur]: (value: string, e: any) => void;
     [SpreadsheetEvents.cellInput]: (cell: string, value: string) => void;
     [SpreadsheetEvents.gridRedraw]: () => void;
+    [SpreadsheetEvents.afterPopupHide]: () => void;
 }
 export interface IAction {
     do(...args: any[]): any;
     undo(): void;
+    config: any;
 }
 export interface IExecuteConfig {
     row?: number;
@@ -246,7 +252,7 @@ export interface IExecuteConfig {
     action?: Actions;
     groupAction?: Actions;
     cell?: string;
-    dataStore: DataStore;
+    dataStore?: DataStore;
     sheets?: DataCollection;
     page?: DataPage;
     [key: string]: any;
@@ -278,7 +284,12 @@ export declare enum Actions {
     resizeCol = "resizeCol",
     resizeRow = "resizeRow",
     setValidation = "setValidation",
-    sortCells = "sortCells"
+    sortCells = "sortCells",
+    insertLink = "insertLink",
+    fitColumn = "fitColumn",
+    filter = "filter",
+    merge = "merge",
+    unmerge = "unmerge"
 }
 export interface IActionsManager {
     execute(commandsPack: IExecuteConfig[]): void;
@@ -300,6 +311,10 @@ export interface ICellInfo {
     format?: string;
     editor?: CellEditor;
 }
+export interface ILink {
+    text?: string;
+    href: string;
+}
 export interface ICellMeta {
     locked?: boolean;
     edited?: boolean;
@@ -311,7 +326,54 @@ export interface ICellMeta {
     format?: IFormats;
     type?: CellTypes;
     value?: string | number | boolean;
+    link?: ILink;
     [key: string]: any;
+}
+export interface IPageMeta {
+    cols?: {
+        width: number;
+    }[];
+    rows?: {
+        height: number;
+    }[];
+    inserted?: boolean;
+    scroll?: ICoords;
+    toolbarId?: Id;
+    selectedCells?: string[];
+    focusedCell?: ISelectedCell;
+    leftSplit?: number;
+    filter?: IFilter;
+}
+export interface IFilter {
+    cell: string;
+    rules: IFilterRules[];
+}
+export declare enum FilterConditions {
+    e = "e",
+    ne = "ne",
+    tc = "tc",
+    tdc = "tdc",
+    ts = "ts",
+    te = "te",
+    tex = "tex",
+    d = "d",
+    db = "db",
+    da = "da",
+    gt = "gt",
+    geq = "geq",
+    lt = "lt",
+    leq = "leq",
+    eq = "eq",
+    neq = "neq",
+    ib = "ib",
+    inb = "inb"
+}
+export interface IFilterRules {
+    condition?: {
+        factor: FilterConditions;
+        value?: any;
+    };
+    exclude?: any[];
 }
 export interface IRow {
     id: Id;
@@ -320,6 +382,16 @@ export interface ICol {
     id: Id;
     $edit?: any;
     header?: any[];
+}
+export interface ISpan {
+    from: {
+        row: number;
+        column: number;
+    };
+    to: {
+        row: number;
+        column: number;
+    };
 }
 export interface ICell {
     row: string;
@@ -343,7 +415,7 @@ export interface IBufferManager {
     getStruct: () => IBufferStruct;
 }
 export interface IBufferStruct {
-    value: string | string[];
+    value: string | string[] | number | number[];
     styles: IStylesList | IStylesList[];
     cell: string;
     math: IFormula[];
@@ -353,6 +425,7 @@ export interface IBufferStruct {
     inserted: boolean;
     operation: "cut" | "copy" | "";
     html: string;
+    spans: ISpan[];
 }
 export declare type FileFormat = "json" | "csv" | "xlsx";
 export {};

@@ -37,5 +37,17 @@ export declare function getKeysHandlers(spreadsheet: ISpreadsheet, grid: IGrid, 
     "ctrl+b": () => void;
     "ctrl+i": () => void;
     "ctrl+u": (e: any) => void;
+    "ctrl+f": (e: any) => void;
+    "alt+shift+5": (e: any) => void;
+    "ctrl+shift+x": (e: any) => void;
+    "ctrl+shift+e": (e: any) => void;
+    "ctrl+shift+l": (e: any) => void;
+    "ctrl+shift+r": (e: any) => void;
+    "shift + F11": (e: any) => void;
+    "alt + arrowUp": (e: any) => void;
+    "alt + arrowDown": (e: any) => void;
+    "ctrl + space": (e: any) => void;
+    "shift + space": (e: any) => void;
+    "ctrl+k": (e: any) => void;
     backspace: () => void;
 };

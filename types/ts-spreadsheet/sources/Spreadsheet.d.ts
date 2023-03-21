@@ -3,7 +3,7 @@ import { View } from "../../ts-common/view";
 import { Toolbar } from "../../ts-toolbar";
 import { ContextMenu, Menu } from "../../ts-menu";
 import { IKeyManager } from "../../ts-common/newKeyManager";
-import { FileFormat, ICellInfo, Id, IDataWithStyles, IFormats, ISelection, ISheet, ISpreadsheet, ISpreadsheetConfig, IStylesList, SpreadsheetEvents } from "./types";
+import { FileFormat, ICellInfo, Id, IDataWithStyles, IFormats, ISelection, ISheet, ISpreadsheet, ISpreadsheetConfig, IStylesList, SpreadsheetEvents, ILink, IFilterRules, IFilter } from "./types";
 import { Exporter } from "./Exporter";
 import { DataPage, IFormula } from "../../muon";
 export declare class Spreadsheet extends View implements ISpreadsheet {
@@ -41,11 +41,17 @@ export declare class Spreadsheet extends View implements ISpreadsheet {
     private _editMode;
     private _activeSheetName;
     private _validationForm;
+    private _searchForm;
+    private _linkForm;
+    private _contextMenuVisible;
+    private _filterForm;
+    private _spanControl;
     constructor(container: HTMLElement | string, config: ISpreadsheetConfig);
     destructor(): void;
     paint(): void;
     load(url: string, type?: FileFormat): Promise<any>;
     parse(data: IDataWithStyles | ICellInfo[], type?: any): void;
+    _parseCells(data: any, page: DataPage): void;
     serialize(): {
         sheets: any[];
         styles: {};
@@ -58,8 +64,10 @@ export declare class Spreadsheet extends View implements ISpreadsheet {
     getSheets(): ISheet[];
     _getMath(cell: string, page?: DataPage): IFormula;
     eachCell(cb: any, range?: string): void;
-    getStyle(cell: string): IStylesList | IStylesList[];
+    getStyle(cell: string, linkStyles?: boolean): IStylesList | IStylesList[];
     setStyle(cell: string, style: string | string[] | IStylesList | IStylesList[]): void;
+    setFilter(cell?: string, filter?: IFilterRules[]): void;
+    getFilter(id?: string): IFilter;
     getFormat(cell: string): any;
     setFormat(cell: string, format: Id | Id[]): void;
     clearSheet(id?: string): void;
@@ -78,10 +86,17 @@ export declare class Spreadsheet extends View implements ISpreadsheet {
     addSheet(name?: string): any;
     removeSheet(id: string): void;
     getActiveSheet(): ISheet;
-    setActiveSheet(id: string): void;
+    setActiveSheet(id: Id): void;
     setValidation(cell: string, options: string | string[]): void;
-    private _checkValidation;
+    search(text?: string, openSearch?: boolean, sheetId?: Id): string[];
+    hideSearch(): void;
+    insertLink(cell: string, link?: ILink): void;
+    fitColumn(cell: string): void;
     sortCells(cell: string, dir?: number): void;
+    mergeCells(cell: string, remove?: boolean): void;
+    private _showLinkPopup;
+    private _showFilter;
+    private _checkValidation;
     private _renameSheet;
     private _getSheet;
     private _changeSheet;
@@ -96,6 +111,7 @@ export declare class Spreadsheet extends View implements ISpreadsheet {
     private _setEventsHandlers;
     private _getErrorWindow;
     private _handleAction;
+    private _parseCell;
     private _fillCells;
     private _restoreFocus;
     private _initHotkeys;

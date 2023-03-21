@@ -1,10 +1,10 @@
 import { Id } from "../../ts-common/types";
 import { DataCollection } from "../../ts-data";
-import { IFileWrapper, IParams, IUploader, IUploaderConfig, IVaultEventSystem } from "./types";
+import { IFileWrapper, IParams, IUploader, IUploaderConfig, IUploaderEventSystem, IVaultEventSystem } from "./types";
 export declare class Uploader implements IUploader {
     config: IUploaderConfig;
     data: DataCollection<IFileWrapper>;
-    events: IVaultEventSystem;
+    events: IUploaderEventSystem;
     isActive: boolean;
     private _fileInput;
     private _dropAreas;

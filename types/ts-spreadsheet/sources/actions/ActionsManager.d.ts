@@ -20,6 +20,11 @@ import { ResizeCol } from "./ResizeCol";
 import { ResizeRow } from "./ResizeRow";
 import { SetValidation } from "./SetValidation";
 import { SortCells } from "./SortCells";
+import { InsertLink } from "./InsertLink";
+import { FitColumn } from "./FitCol";
+import { Filter } from "./Filter";
+import { Merge } from "./Merge";
+import { Unmerge } from "./Unmerge";
 export declare const actions: {
     setCellStyle: typeof SetCellStyle;
     setCellValue: typeof SetCellValue;
@@ -42,6 +47,11 @@ export declare const actions: {
     resizeRow: typeof ResizeRow;
     setValidation: typeof SetValidation;
     sortCells: typeof SortCells;
+    insertLink: typeof InsertLink;
+    fitColumn: typeof FitColumn;
+    filter: typeof Filter;
+    merge: typeof Merge;
+    unmerge: typeof Unmerge;
 };
 export declare class ActionsManager implements IActionsManager {
     private _actions;

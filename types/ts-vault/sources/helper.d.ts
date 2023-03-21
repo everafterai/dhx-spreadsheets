@@ -28,3 +28,4 @@ export declare enum FileType {
 export declare function getFileType(extension: any, mime: any): FileType;
 export declare function getFileClassName(fileWrapper: IFileWrapper): string;
 export declare function isImage(fileWrapper: any): boolean;
+export declare function removeItem(data: any, id: any): void;

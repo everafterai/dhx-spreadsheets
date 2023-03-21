@@ -16,10 +16,16 @@ export declare function getContextMenuStruct(): ({
     id: string;
     value: string;
     icon: string;
-    items: {
+    items: ({
         id: string;
         value: string;
         icon: string;
-    }[];
+        hidden?: undefined;
+    } | {
+        id: string;
+        value: string;
+        hidden: boolean;
+        icon: string;
+    })[];
 })[];
 export declare function getSheetsContextMenuStruct(multisheets: boolean): IMenuElement[];
