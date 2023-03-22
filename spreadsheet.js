@@ -5321,7 +5321,7 @@ if (window.dhx) {
           columns === null || columns === void 0
             ? void 0
             : columns.map(function (col, i) {
-                col.width = col.width || 120;
+                col.width = col.width || 100;
                 totalWidth += col.hidden ? 0 : col.width;
                 if (col.id !== "$index") {
                   var letter = main_1.getLetterFromNumber(i);
@@ -28340,7 +28340,7 @@ if (window.dhx) {
               readOnly: false,
               multiselection: false,
               selectAllButton: false,
-              itemHeight: 32,
+              itemHeight: 21,
               virtual: false,
               listHeight: 224,
               required: false,
@@ -33446,7 +33446,7 @@ if (window.dhx) {
                 rows.push({ height: rowHeight });
               }
               while (cols.length < colsCount) {
-                cols.push({ width: 120 });
+                cols.push({ width: 100 });
               }
               var merged = sheet.merged || [];
               if ((topSplit || leftSplit) && merged) {
@@ -34600,8 +34600,8 @@ if (window.dhx) {
           };
           Spreadsheet.prototype._initLayout = function () {
             this._grid = new ts_grid_1.Grid(null, {
-              rowHeight: 32,
-              headerRowHeight: 32,
+              rowHeight: 21,
+              headerRowHeight: 21,
               headerSort: false,
               tooltip: false,
               leftSplit: 1 + (this.config.leftSplit || 0),
@@ -34978,7 +34978,7 @@ if (window.dhx) {
               var letter = main_1.getLetterFromNumber(i);
               cols.push({
                 id: "" + i,
-                width: 120,
+                width: 100,
                 $letter: letter,
                 type: "string",
                 header: [
@@ -35071,7 +35071,7 @@ if (window.dhx) {
               newRows.push(row);
             }
             while (cols.length < pageCols) {
-              cols.push({ width: 120 });
+              cols.push({ width: 100 });
             }
             var firstCol = gridColumns[0],
               _dataCols = gridColumns.slice(1);
@@ -35081,7 +35081,7 @@ if (window.dhx) {
               var letter = main_1.getLetterFromNumber(newCols.length);
               newCols.push({
                 id: "" + newCols.length,
-                width: cols[i].width || 120,
+                width: cols[i].width || 100,
                 $letter: letter,
                 type: "string",
                 header: [
@@ -50164,7 +50164,7 @@ function findBinKeyed(n, list) {
             var colsBefore = cols.slice(0, this._index);
             var colsAfter = cols.slice(this._index);
             activePage.setMeta({
-              cols: __spreadArrays(colsBefore, [{ width: 120 }], colsAfter),
+              cols: __spreadArrays(colsBefore, [{ width: 100 }], colsAfter),
             });
             spreadsheet._updateGridSizes();
             var spans = actions_1.updateSpans(1, 0, this._index, activePage);
@@ -50300,21 +50300,19 @@ function findBinKeyed(n, list) {
             var cols = [];
             var rows = [];
             for (var i = 0; i < this.config.spreadsheet.config.colsCount; i++) {
-              cols.push({ width: 120 });
+              cols.push({ width: 100 });
             }
             for (var i = 0; i < this.config.spreadsheet.config.rowsCount; i++) {
               rows.push({
                 height: this.config.spreadsheet._grid.config.rowHeight,
               });
             }
-            this._store
-              .getPage(val)
-              .setMeta({
-                focusedCell: { cell: "A1" },
-                selectedCells: ["A1"],
-                cols: cols,
-                rows: rows,
-              });
+            this._store.getPage(val).setMeta({
+              focusedCell: { cell: "A1" },
+              selectedCells: ["A1"],
+              cols: cols,
+              rows: rows,
+            });
             var currentSheetId = this.config.spreadsheet.getActiveSheet().id;
             var currentSheetIndex = sheets.getIndex(currentSheetId);
             this._id = sheets.add(
@@ -61828,7 +61826,7 @@ function findBinKeyed(n, list) {
               multiselection: false,
               selectAllButton: false,
               itemsCount: undefined,
-              itemHeight: 32,
+              itemHeight: 21,
               virtual: false,
               listHeight: 224,
               required: false,
